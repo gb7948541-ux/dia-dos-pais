@@ -5,27 +5,27 @@
 
 const cenas = [
     {
-        imagem: "assets/foto1.jpg",
+        imagem: "assets/assets/foto1.jpg",
         texto: "Pai... hoje não é apenas um dia para dizer: Feliz Dia dos Pais."
     },
 
     {
-        imagem: "assets/foto2.jpg",
+        imagem: "assets/assets/foto2.jpg",
         texto: "É um dia para lembrar o quanto você é importante para nós."
     },
 
     {
-        imagem: "assets/foto3.jpg",
+        imagem: "assets/assets/foto3.jpg",
         texto: "Por tudo que você fez, por tudo que ensinou e por todos os momentos que vivemos juntos."
     },
 
     {
-        imagem: "assets/foto4.jpg",
+        imagem: "assets/assets/foto4.jpg",
         texto: "Talvez nem sempre a gente consiga falar..."
     },
 
     {
-        imagem: "assets/foto5.jpg",
+        imagem: "assets/assets/foto5.jpg",
         texto: "Mas existe algo que nunca muda: nós somos muito gratos por ter você. ❤️"
     }
 ];
