@@ -1,0 +1,950 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #000;
+    color: #fff;
+}
+
+/* =========================
+   TELA INICIAL
+========================= */
+
+.tela-inicial {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    background:
+        radial-gradient(circle at center,
+        #3b0000 0%,
+        #160000 45%,
+        #000 100%);
+}
+
+.conteudo-inicial {
+    width: 90%;
+    max-width: 500px;
+
+    animation: aparecer 2s ease;
+}
+
+.coracao {
+    font-size: 60px;
+    margin-bottom: 25px;
+
+    animation:
+        pulsar 1.5s infinite;
+}
+
+.conteudo-inicial h1 {
+    font-size: clamp(32px, 8vw, 60px);
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.conteudo-inicial p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #ddd;
+    margin-bottom: 35px;
+}
+
+/* =========================
+   BOTÃO
+========================= */
+
+button {
+    border: none;
+    outline: none;
+
+    padding: 15px 35px;
+
+    border-radius: 50px;
+
+    background: #e50914;
+    color: white;
+
+    font-size: 17px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 0 20px rgba(229, 9, 20, 0.5);
+
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.08);
+
+    box-shadow:
+        0 0 35px rgba(229, 9, 20, 0.8);
+}
+
+/* =========================
+   VÍDEO / CENAS
+========================= */
+
+.video-container {
+    position: relative;
+
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #000;
+
+    opacity: 0;
+
+    transition: opacity 1s ease;
+
+    /* Formato pensado para vídeo vertical */
+    aspect-ratio: 9 / 16;
+}
+
+.video-container.ativo {
+    opacity: 1;
+}
+
+.foto-container {
+    position: absolute;
+    inset: 0;
+
+    overflow: hidden;
+
+    background: #000;
+}
+
+.foto-container::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0,0,0,0.1),
+            rgba(0,0,0,0.25),
+            rgba(0,0,0,0.85)
+        );
+}
+
+#foto {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    opacity: 0;
+
+    transform: scale(1.08);
+
+    transition:
+        opacity 1.2s ease,
+        transform 8s ease;
+}
+
+#foto.mostrar {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* =========================
+   TEXTO
+========================= */
+
+.texto-container {
+    position: absolute;
+
+    bottom: 15%;
+
+    width: 90%;
+    max-width: 700px;
+
+    text-align: center;
+
+    z-index: 2;
+}
+
+#texto {
+    font-size: clamp(22px, 5vw, 38px);
+
+    line-height: 1.4;
+
+    font-weight: 500;
+
+    text-shadow:
+        0 2px 10px rgba(0,0,0,0.8);
+
+    opacity: 0;
+
+    transform: translateY(25px);
+
+    transition:
+        opacity 1s ease,
+        transform 1s ease;
+}
+
+#texto.mostrar {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =========================
+   INDICADORES
+========================= */
+
+.indicadores {
+    position: absolute;
+
+    top: 25px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 90%;
+
+    display: flex;
+    gap: 5px;
+
+    z-index: 5;
+}
+
+.indicador {
+    flex: 1;
+
+    height: 3px;
+
+    border-radius: 10px;
+
+    background: rgba(255,255,255,0.35);
+
+    overflow: hidden;
+}
+
+.indicador.ativo {
+    background: white;
+}
+
+/* =========================
+   TELA FINAL
+========================= */
+
+.tela-final {
+    position: fixed;
+    inset: 0;
+
+    z-index: 20;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #4a0000,
+            #180000 45%,
+            #000
+        );
+}
+
+.tela-final.mostrar {
+    display: flex;
+
+    animation: aparecer 2s ease;
+}
+
+.conteudo-final {
+    width: 90%;
+    max-width: 600px;
+}
+
+.coracao-grande {
+    font-size: 90px;
+
+    margin-bottom: 25px;
+
+    animation: pulsar 1.5s infinite;
+}
+
+.conteudo-final h1 {
+    font-size: clamp(35px, 9vw, 65px);
+
+    margin-bottom: 20px;
+}
+
+.conteudo-final p {
+    font-size: 24px;
+
+    margin-bottom: 20px;
+
+    color: #eee;
+}
+
+.conteudo-final span {
+    font-size: 18px;
+
+    color: #bbb;
+}
+
+/* =========================
+   ANIMAÇÕES
+========================= */
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulsar {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* =========================
+   CELULAR
+========================= */
+
+@media (max-width: 600px) {
+
+    .conteudo-inicial h1 {
+        font-size: 38px;
+    }
+
+    .conteudo-inicial p {
+        font-size: 16px;
+    }
+
+    #texto {
+        font-size: 23px;
+    }
+
+    .texto-container {
+        bottom: 13%;
+    }
+
+    .coracao-grande {
+        font-size: 70px;
+    }
+}/* ========================================
+   EXPERIÊNCIA VERTICAL - STATUS
+======================================== */
+
+@media (max-width: 600px) {
+
+    body {
+        background: #000;
+    }
+
+    .video-container {
+        width: 100%;
+        height: 100vh;
+
+        aspect-ratio: auto;
+    }
+
+    .foto-container {
+        width: 100%;
+        height: 100%;
+    }
+
+    #foto {
+        object-fit: cover;
+    }
+
+    .texto-container {
+        width: 88%;
+        bottom: 12%;
+    }
+
+    #texto {
+        font-size: clamp(22px, 6vw, 30px);
+        line-height: 1.35;
+    }
+}/* ========================================
+   EFEITO CINEMATOGRÁFICO NAS FOTOS
+======================================== */
+
+#foto {
+    filter: brightness(0.85) saturate(1.08);
+
+    transition:
+        opacity 1.4s ease,
+        transform 7s ease,
+        filter 1.4s ease;
+
+    transform: scale(1.10);
+}
+
+#foto.mostrar {
+    opacity: 1;
+    transform: scale(1);
+
+    animation: zoomCinematografico 7s ease forwards;
+}
+
+@keyframes zoomCinematografico {
+
+    0% {
+        transform: scale(1.10);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+/* ========================================
+   TEXTO CINEMATOGRÁFICO
+======================================== */
+
+#texto.mostrar {
+    opacity: 1;
+
+    animation: entradaTexto 1.2s ease forwards;
+}
+
+@keyframes entradaTexto {
+
+    0% {
+        opacity: 0;
+        transform: translateY(25px);
+        filter: blur(5px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}/* ========================================
+   DEGRADÊ CINEMATOGRÁFICO
+======================================== */
+
+.foto-container::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.05) 0%,
+        rgba(0, 0, 0, 0.05) 45%,
+        rgba(0, 0, 0, 0.75) 100%
+    );
+
+    pointer-events: none;
+    z-index: 1;
+}/* ========================================
+   ABERTURA - DIA DOS PAIS
+======================================== */
+
+#inicio {
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(120, 90, 50, 0.18),
+            transparent 55%
+        ),
+        linear-gradient(
+            135deg,
+            #080808,
+            #17120d,
+            #050505
+        );
+
+    position: relative;
+    overflow: hidden;
+}
+
+/* Luz suave no centro */
+
+#inicio::before {
+    content: "";
+
+    position: absolute;
+    width: 320px;
+    height: 320px;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    background: rgba(255, 200, 120, 0.08);
+
+    border-radius: 50%;
+
+    filter: blur(70px);
+
+    animation: luzRespirando 4s ease-in-out infinite;
+}
+
+@keyframes luzRespirando {
+
+    0%,
+    100% {
+        opacity: 0.4;
+        transform: translate(-50%, -50%) scale(0.9);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.15);
+    }
+}/* Texto da abertura */
+
+#inicio h1 {
+    position: relative;
+    z-index: 2;
+
+    font-size: clamp(34px, 9vw, 58px);
+
+    color: #ffffff;
+
+    text-align: center;
+
+    letter-spacing: 1px;
+
+    text-shadow:
+        0 0 20px rgba(255, 210, 140, 0.18);
+
+    animation: entradaAbertura 1.8s ease forwards;
+}
+
+#inicio p {
+    position: relative;
+    z-index: 2;
+
+    color: rgba(255, 255, 255, 0.78);
+
+    font-size: clamp(17px, 4.5vw, 22px);
+
+    text-align: center;
+
+    max-width: 500px;
+
+    line-height: 1.5;
+
+    animation: entradaAbertura 2.2s ease forwards;
+}
+
+@keyframes entradaAbertura {
+
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+        filter: blur(8px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}#btnComecar {
+    position: relative;
+    z-index: 2;
+
+    margin-top: 25px;
+
+    padding: 15px 32px;
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
+
+    border-radius: 50px;
+
+    background: rgba(255, 255, 255, 0.08);
+
+    color: #ffffff;
+
+    font-size: 17px;
+
+    cursor: pointer;
+
+    backdrop-filter: blur(10px);
+
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.35);
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+#btnComecar:hover {
+    transform: scale(1.05);
+
+    background: rgba(255, 255, 255, 0.15);
+
+    box-shadow:
+        0 10px 35px rgba(255, 200, 120, 0.15);
+}/* Corrige a tela inicial para ocupar toda a tela */
+#inicio {
+    position: fixed;
+    inset: 0;
+
+    width: 100%;
+    height: 100vh;
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box;
+}html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+
+    background: #000;
+    overflow: hidden;
+}/* ========================================
+   TELA FINAL - HOMENAGEM
+======================================== */
+
+.tela-final {
+    position: fixed;
+    inset: 0;
+
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(150, 110, 55, 0.16),
+            transparent 55%
+        ),
+        linear-gradient(
+            135deg,
+            #080808,
+            #17120d,
+            #050505
+        );
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition: opacity 1.5s ease;
+
+    z-index: 20;
+}
+
+.tela-final.mostrar {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.conteudo-final {
+    width: 88%;
+    max-width: 600px;
+
+    animation: finalEntrando 2s ease forwards;
+}
+
+.coracao-grande {
+    font-size: 55px;
+
+    margin-bottom: 25px;
+
+    animation: coracaoPulando 2.5s ease-in-out infinite;
+}
+
+.frase-final {
+    color: rgba(255, 255, 255, 0.78);
+
+    font-size: clamp(18px, 4.5vw, 24px);
+
+    line-height: 1.6;
+
+    margin-bottom: 28px;
+}
+
+.conteudo-final h1 {
+    color: #ffffff;
+
+    font-size: clamp(30px, 8vw, 52px);
+
+    line-height: 1.15;
+
+    margin: 0 0 22px;
+
+    text-shadow:
+        0 0 25px rgba(255, 210, 140, 0.15);
+}
+
+.amor-final {
+    color: #ffffff;
+
+    font-size: clamp(20px, 5vw, 28px);
+
+    margin-bottom: 18px;
+}
+
+.conteudo-final span {
+    color: rgba(255, 255, 255, 0.55);
+
+    font-size: 16px;
+
+    letter-spacing: 2px;
+}
+
+@keyframes finalEntrando {
+
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+        filter: blur(8px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+@keyframes coracaoPulando {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.12);
+    }
+}/* ========================================
+   PARTÍCULAS DA TELA FINAL
+======================================== */
+
+.particulas {
+    position: absolute;
+    inset: 0;
+
+    overflow: hidden;
+
+    pointer-events: none;
+}
+
+.particulas span {
+    position: absolute;
+
+    bottom: -30px;
+
+    color: rgba(255, 220, 160, 0.55);
+
+    font-size: 18px;
+
+    animation: subirParticula 8s linear infinite;
+}
+
+/* posições diferentes */
+
+.particulas span:nth-child(1) {
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.particulas span:nth-child(2) {
+    left: 20%;
+    animation-delay: 2s;
+}
+
+.particulas span:nth-child(3) {
+    left: 32%;
+    animation-delay: 4s;
+}
+
+.particulas span:nth-child(4) {
+    left: 43%;
+    animation-delay: 1s;
+}
+
+.particulas span:nth-child(5) {
+    left: 55%;
+    animation-delay: 3s;
+}
+
+.particulas span:nth-child(6) {
+    left: 66%;
+    animation-delay: 5s;
+}
+
+.particulas span:nth-child(7) {
+    left: 74%;
+    animation-delay: 1.5s;
+}
+
+.particulas span:nth-child(8) {
+    left: 82%;
+    animation-delay: 3.5s;
+}
+
+.particulas span:nth-child(9) {
+    left: 90%;
+    animation-delay: 5.5s;
+}
+
+.particulas span:nth-child(10) {
+    left: 50%;
+    animation-delay: 6s;
+}
+
+@keyframes subirParticula {
+
+    0% {
+        transform: translateY(0) scale(0.6);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 0.7;
+    }
+
+    80% {
+        opacity: 0.4;
+    }
+
+    100% {
+        transform: translateY(-100vh) scale(1);
+        opacity: 0;
+    }
+}/* ========================================
+   MENSAGEM FINAL - DIA DOS PAIS
+======================================== */
+
+.tela-final {
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(180, 130, 60, 0.16),
+            transparent 55%
+        ),
+        #050505;
+}
+
+.conteudo-final {
+    position: relative;
+    z-index: 5;
+
+    width: 88%;
+    max-width: 600px;
+
+    text-align: center;
+}
+
+.conteudo-final h1 {
+    font-size: clamp(30px, 8vw, 52px);
+    line-height: 1.2;
+
+    color: #fff;
+
+    margin-bottom: 25px;
+
+    text-shadow:
+        0 0 25px rgba(255, 210, 140, 0.2);
+}
+
+.frase-final {
+    font-size: clamp(18px, 4.8vw, 25px);
+    line-height: 1.6;
+
+    color: rgba(255, 255, 255, 0.82);
+
+    margin-bottom: 25px;
+}
+
+.amor-final {
+    font-size: clamp(21px, 5vw, 29px);
+
+    color: #fff;
+
+    margin-top: 25px;
+}
+
+.conteudo-final span {
+    display: block;
+
+    margin-top: 18px;
+
+    color: rgba(255, 255, 255, 0.55);
+
+    font-size: 16px;
+
+    letter-spacing: 2px;
+}
+
+/* coração */
+
+.coracao-grande {
+    font-size: 55px;
+
+    margin-bottom: 20px;
+
+    animation: pulsarCoracao 2.5s ease-in-out infinite;
+}
+
+@keyframes pulsarCoracao {
+
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.12);
+    }
+}
